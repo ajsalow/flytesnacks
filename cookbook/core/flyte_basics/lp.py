@@ -52,7 +52,7 @@ square_5 = my_lp(val=5)
 
 # %%
 # It is possible to **fix** launch plan inputs, so that they can't be overridden at execution call time.
-my_fixed_lp = LaunchPlan.create("always_2_lp", my_wf, fixed_inputs={"val": 4})
+my_fixed_lp = LaunchPlan.get_or_create(name="always_2_lp", workflow=my_wf, fixed_inputs={"val": 4})
 square_2 = my_fixed_lp()
 # error:
 # square_1 = my_fixed_lp(val=1)
@@ -118,9 +118,9 @@ for n in range(7):
 
     from flytekit import LaunchPlan
 
-    sea_launch_plan = LaunchPlan.create(
-        "sea_lp",
-        MyWorkflow,
+    sea_launch_plan = LaunchPlan.get_or_create(
+        name="sea_lp",
+        workflow=MyWorkflow,
         default_inputs={'sample_size': 1000},
         fixed_inputs={'region': 'SEA'},                
     )
